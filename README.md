@@ -41,6 +41,8 @@ Notes:
 
 ## Bitmasks
 
+These are the results for 11-31 attributes. 
+
 | Run # | Time (s) | Total MB | Data MB | Index MB | Peak MEM MB | Block IO MB |
 |-------|----------|----------|---------|----------|-------------|-------------|
 | 1     | 21       | 541      | 403     | 138      | 238         | 155/3550    |
@@ -51,6 +53,9 @@ Notes:
 | 6     | 20       | 541      | 403     | 138      | 234         | 155/3610    |
 
 ## Booleans
+
+These are the results for 11 attributes. More attributes mean more indexes and thus
+more resources.
 
 | Run # | Time (s) | Total MB | Data MB | Index MB | Peak MEM MB | Block IO MB |
 |-------|----------|----------|---------|----------|-------------|-------------|
