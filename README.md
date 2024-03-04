@@ -52,6 +52,10 @@ These are the results for 11-31 attributes.
 | 5     | 21       | 541      | 403     | 138      | 233         | 154/3670    |
 | 6     | 20       | 541      | 403     | 138      | 234         | 155/3610    |
 
+* Median value for "Peak MEM MB": 233.5
+* Median value for "Block Input MB": 155
+* Median value for "Block Output MB": 3605
+
 ### Unoptimized query
 
 ```sql
@@ -73,10 +77,12 @@ Result size is 455,583.
 | 5     | 407                 | 9               |
 | 6     | 398                 | 10              |
 
+* Median value for "Execution time (ms)": 411
+* Median value for "Fetch time (ms)": 10
 
 ### Optimized query
 
-This query only calculates status when it's needed.
+This query only calculates what's needed.
 
 ```sql
 SELECT *, status & 8 = 8 AS is_european
@@ -97,6 +103,9 @@ Result size is 455,583.
 | 5     | 299                 | 7               |
 | 6     | 324                 | 7               |
 
+* Median value for "Execution time (ms)": 297.5
+* Median value for "Fetch time (ms)": 7.5
+
 ## Booleans
 
 These are the results for 11 attributes. More attributes mean more indexes and thus
@@ -110,6 +119,10 @@ more resources.
 | 4     | 51       | 848      | 403     | 446      | 234         | 157/7670    |
 | 5     | 51       | 848      | 403     | 446      | 234         | 160/7740    |
 | 6     | 51       | 848      | 403     | 446      | 267         | 162/7690    |
+
+* Median value for "Peak MEM MB": 235
+* Median value for "Block Input MB": 161
+* Median value for "Block Output MB": 7715
 
 ```sql
 SELECT *
@@ -129,3 +142,6 @@ Result size is 453,836.
 | 4     | 274                 | 14              |
 | 5     | 287                 | 16              |
 | 6     | 242                 | 14              |
+
+* Median value for "Execution time (ms)": 284
+* Median value for "Fetch time (ms)": 15
