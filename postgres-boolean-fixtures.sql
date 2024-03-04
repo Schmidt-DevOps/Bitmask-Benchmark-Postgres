@@ -75,47 +75,32 @@ CREATE OR REPLACE FUNCTION insert_random_characters()
 $$
 DECLARE
     i                  INTEGER := 1;
-    rnd_is_female      FLOAT;
-    rnd_is_male        FLOAT;
-    rnd_is_scientist   FLOAT;
-    rnd_is_european    FLOAT;
-    rnd_is_american    FLOAT;
-    rnd_is_activist    FLOAT;
-    rnd_is_fictional   FLOAT;
-    rnd_is_politician  FLOAT;
-    rnd_is_space_farer FLOAT;
-    rnd_is_academic    FLOAT;
-    rnd_is_terran      FLOAT;
+    random_value       FLOAT;
+    rnd_exp            INTEGER;
+    status             INTEGER;
 BEGIN
     WHILE i <= 5000000
         LOOP
-            rnd_is_female := random();
-            rnd_is_male := random();
-            rnd_is_scientist := random();
-            rnd_is_european := random();
-            rnd_is_american := random();
-            rnd_is_activist := random();
-            rnd_is_fictional := random();
-            rnd_is_politician := random();
-            rnd_is_space_farer := random();
-            rnd_is_academic := random();
-            rnd_is_terran := random();
+            random_value := random();
+            rnd_exp := floor(random_value * 11);
+            status := 2 ^ rnd_exp;
 
-            INSERT INTO bitmask_demo
+            INSERT
+            INTO bitmask_demo
             (character_name, is_female, is_male, is_scientist, is_european, is_american, is_activist,
              is_fictional, is_politician, is_space_farer, is_academic, is_terran)
             VALUES (uuid_generate_v4(),
-                    rnd_is_female >= 0.5,
-                    rnd_is_male >= 0.5,
-                    rnd_is_scientist >= 0.5,
-                    rnd_is_european >= 0.5,
-                    rnd_is_american >= 0.5,
-                    rnd_is_activist >= 0.5,
-                    rnd_is_fictional >= 0.5,
-                    rnd_is_politician >= 0.5,
-                    rnd_is_space_farer >= 0.5,
-                    rnd_is_academic >= 0.5,
-                    rnd_is_terran >= 0.5);
+                    status & 1 = 2 ^ 0,
+                    status & 2 = 2 ^ 1,
+                    status & 4 = 2 ^ 2,
+                    status & 8 = 2 ^ 3,
+                    status & 16 = 2 ^ 4,
+                    status & 32 = 2 ^ 5,
+                    status & 64 = 2 ^ 6,
+                    status & 128 = 2 ^ 7,
+                    status & 256 = 2 ^ 8,
+                    status & 512 = 2 ^ 9,
+                    status & 1024 = 2 ^ 10);
             i := i + 1;
         END LOOP;
 END;

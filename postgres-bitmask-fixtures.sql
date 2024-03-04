@@ -26,18 +26,26 @@ DECLARE
     is_politician  INTEGER := 2 ^ 7;
     is_space_farer INTEGER := 2 ^ 8;
     is_academic    INTEGER := 2 ^ 9;
-    -- I don't have the time to come up with so many attributes so we skip right up to 2 ^ 30...
-    is_terran      INTEGER := 2 ^ 30;
+    is_terran      INTEGER := 2 ^ 10;
 BEGIN
-    INSERT INTO bitmask_demo (status, character_name) VALUES (is_terran | is_academic | is_male | is_scientist | is_american, 'Anthony Fauci');
-    INSERT INTO bitmask_demo (status, character_name) VALUES (is_terran | is_academic | is_male | is_scientist | is_european, 'Chr. Drosten');
-    INSERT INTO bitmask_demo (status, character_name) VALUES (is_terran | is_academic | is_male | is_activist | is_european, 'Hermann Gmeiner');
-    INSERT INTO bitmask_demo (status, character_name) VALUES (is_terran | is_fictional | is_male | is_american, 'Justus Jonas');
-    INSERT INTO bitmask_demo (status, character_name) VALUES (is_terran | is_fictional | is_male | is_american, 'Hank Hill');
-    INSERT INTO bitmask_demo (status, character_name) VALUES (is_terran | is_space_farer | is_fictional | is_male | is_american | is_scientist, 'Rick Sanchez');
-    INSERT INTO bitmask_demo (status, character_name) VALUES (is_terran | is_academic | is_politician | is_female | is_european, 'Ursula von der Leyen');
-    INSERT INTO bitmask_demo (status, character_name) VALUES (is_terran | is_politician | is_fictional | is_male | is_american | is_european, 'Abradolf Lincler');
-    INSERT INTO bitmask_demo (status, character_name) VALUES (is_space_farer | is_politician | is_fictional |is_male | is_activist, 'Shrimply Pibbles');
+    INSERT INTO bitmask_demo (status, character_name)
+    VALUES (is_terran | is_academic | is_male | is_scientist | is_american, 'Anthony Fauci');
+    INSERT INTO bitmask_demo (status, character_name)
+    VALUES (is_terran | is_academic | is_male | is_scientist | is_european, 'Chr. Drosten');
+    INSERT INTO bitmask_demo (status, character_name)
+    VALUES (is_terran | is_academic | is_male | is_activist | is_european, 'Hermann Gmeiner');
+    INSERT INTO bitmask_demo (status, character_name)
+    VALUES (is_terran | is_fictional | is_male | is_american, 'Justus Jonas');
+    INSERT INTO bitmask_demo (status, character_name)
+    VALUES (is_terran | is_fictional | is_male | is_american, 'Hank Hill');
+    INSERT INTO bitmask_demo (status, character_name)
+    VALUES (is_terran | is_space_farer | is_fictional | is_male | is_american | is_scientist, 'Rick Sanchez');
+    INSERT INTO bitmask_demo (status, character_name)
+    VALUES (is_terran | is_academic | is_politician | is_female | is_european, 'Ursula von der Leyen');
+    INSERT INTO bitmask_demo (status, character_name)
+    VALUES (is_terran | is_politician | is_fictional | is_male | is_american | is_european, 'Abradolf Lincler');
+    INSERT INTO bitmask_demo (status, character_name)
+    VALUES (is_space_farer | is_politician | is_fictional | is_male | is_activist, 'Shrimply Pibbles');
     INSERT INTO bitmask_demo (status, character_name) VALUES (is_terran | is_male | is_european, 'Georg Elser');
 END;
 $$ LANGUAGE plpgsql;
@@ -54,7 +62,7 @@ BEGIN
     WHILE i <= 5000000
         LOOP
             random_value := random();
-            rnd_exp := floor(random_value * 31);
+            rnd_exp := floor(random_value * 11);
             INSERT INTO bitmask_demo (status, character_name) VALUES (2 ^ rnd_exp, uuid_generate_v4());
             i := i + 1;
         END LOOP;
@@ -66,16 +74,16 @@ CREATE VIEW view_bitmask_demo AS
 SELECT id,
        character_name,
        status,
-       status & 1 = 2 ^ 0           AS is_female,
-       status & 2 = 2 ^ 1           AS is_male,
-       status & 4 = 2 ^ 2           AS is_scientist,
-       status & 8 = 2 ^ 3           AS is_european,
-       status & 16 = 2 ^ 4          AS is_american,
-       status & 32 = 2 ^ 5          AS is_activist,
-       status & 64 = 2 ^ 6          AS is_fictional,
-       status & 128 = 2 ^ 7         AS is_politician,
-       status & 256 = 2 ^ 8         AS is_space_farer,
-       status & 512 = 2 ^ 9         AS is_academic,
-       status & 1073741824 = 2 ^ 30 AS is_terran
+       status & 1 = 1       AS is_female,
+       status & 2 = 2       AS is_male,
+       status & 4 = 4       AS is_scientist,
+       status & 8 = 8       AS is_european,
+       status & 16 = 16     AS is_american,
+       status & 32 = 32     AS is_activist,
+       status & 64 = 64     AS is_fictional,
+       status & 128 = 128   AS is_politician,
+       status & 256 = 256   AS is_space_farer,
+       status & 512 = 512   AS is_academic,
+       status & 1024 = 1024 AS is_terran
 FROM bitmask_demo
 ORDER BY id;
