@@ -43,68 +43,46 @@ Notes:
 
 These are the results for 11-31 attributes.
 
-| Run # | Time (s) | Total MB | Data MB | Index MB | Peak MEM MB | Block IO MB |
-|-------|----------|----------|---------|----------|-------------|-------------|
-| 1     | 21       | 541      | 403     | 138      | 238         | 155/3550    |
-| 2     | 21       | 541      | 403     | 138      | 244         | 155/3600    |
-| 3     | 21       | 541      | 403     | 138      | 229         | 157/3570    |
-| 4     | 21       | 541      | 403     | 138      | 229         | 154/3670    |
-| 5     | 21       | 541      | 403     | 138      | 233         | 154/3670    |
-| 6     | 20       | 541      | 403     | 138      | 234         | 155/3610    |
+| Run # | Time (s) | Total MB | Data MB | Index MB | Peak MEM MB | Block I MB | Block O MB |
+|-------|----------|----------|---------|----------|-------------|------------|------------|
+| 1     | 21       | 574      | 403     | 171      | 324         | 153        | 3430       |
+| 2     | 22       | 574      | 403     | 171      | 325         | 153        | 3960       |
+| 3     | 21       | 574      | 403     | 171      | 324         | 153        | 4020       |
+| 4     | 21       | 574      | 403     | 171      | 294         | 153        | 3980       |
+| 5     | 21       | 574      | 403     | 171      | 325         | 153        | 3980       |
+| 6     | 20       | 574      | 403     | 171      | 227         | 159        | 3930       |
 
-* Median value for "Peak MEM MB": 233.5
-* Median value for "Block Input MB": 155
-* Median value for "Block Output MB": 3605
-
-### Unoptimized query
-
-```sql
-SELECT *
-FROM view_bitmask_demo
-WHERE is_male IS false
-  AND (is_female IS false AND is_scientist IS true)
-ORDER BY is_european;
-```
-
-Result size is 455,583.
-
-| Run # | Execution Time (ms) | Fetch Time (ms) |
-|-------|---------------------|-----------------|
-| 1     | 408                 | 10              |
-| 2     | 417                 | 10              |
-| 3     | 427                 | 10              |
-| 4     | 414                 | 9               |
-| 5     | 407                 | 9               |
-| 6     | 398                 | 10              |
-
-* Median value for "Execution time (ms)": 411
-* Median value for "Fetch time (ms)": 10
-
-### Optimized query
+* Median value for "Peak MEM MB": 324
+* Median value for "Block Input MB": 153
+* Median value for "Block Output MB": 3970
 
 This query only calculates what's needed.
 
 ```sql
+-- Create dedicated index for bits you want to order by
+DROP INDEX IF EXISTS is_european_idx;
+CREATE INDEX is_european_idx ON bitmask_demo ((status & 8 = 8) );
+
 SELECT *, status & 8 = 8 AS is_european
 FROM bitmask_demo
 WHERE status & 2 != 2
-  AND (status & 1 != 1 AND status & 4 = 4)
-ORDER BY is_european;
+   OR (status & 1 != 1 AND status & 4 = 4)
+ORDER BY is_european ASC;
 ```
 
-Result size is 455,583.
+Result size is 4,546,503
 
 | Run # | Execution Time (ms) | Fetch Time (ms) |
 |-------|---------------------|-----------------|
-| 1     | 279                 | 14              |
-| 2     | 296                 | 13              |
-| 3     | 284                 | 7               |
-| 4     | 299                 | 8               |
-| 5     | 299                 | 7               |
-| 6     | 324                 | 7               |
+| 1     | 119                 | 12              |
+| 2     | 6                   | 21              |
+| 3     | 7                   | 38              |
+| 4     | 6                   | 36              |
+| 5     | 6                   | 42              |
+| 6     | 7                   | 20              |
 
-* Median value for "Execution time (ms)": 297.5
-* Median value for "Fetch time (ms)": 7.5
+* Median value for "Execution time (ms)": 6.5
+* Median value for "Fetch time (ms)": 28.5
 
 ## Booleans
 
@@ -125,23 +103,23 @@ more resources.
 * Median value for "Block Output MB": 7715
 
 ```sql
-SELECT *
-FROM view_bitmask_demo
+SELECT id, character_name
+FROM bitmask_demo
 WHERE is_male IS false
-  AND (is_female IS false AND is_scientist IS true)
-ORDER BY is_european;
+   OR (is_female IS false AND is_scientist IS true)
+ORDER BY is_european ASC;
 ```
 
-Result size is 453,836.
+Result size is 4,546,059.
 
 | Run # | Execution Time (ms) | Fetch Time (ms) |
 |-------|---------------------|-----------------|
-| 1     | 561                 | 28              |
-| 2     | 288                 | 21              |
-| 3     | 281                 | 12              |
-| 4     | 274                 | 14              |
-| 5     | 287                 | 16              |
-| 6     | 242                 | 14              |
+| 1     | 108                 | 17              |
+| 2     | 10                  | 19              |
+| 3     | 7                   | 11              |
+| 4     | 7                   | 27              |
+| 5     | 10                  | 20              |
+| 6     | 8                   | 27              |
 
-* Median value for "Execution time (ms)": 284
-* Median value for "Fetch time (ms)": 15
+* Median value for "Execution time (ms)": 9
+* Median value for "Fetch time (ms)": 19.5

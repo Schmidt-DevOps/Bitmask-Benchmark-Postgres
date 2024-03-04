@@ -70,6 +70,10 @@ END;
 $$ LANGUAGE plpgsql;
 SELECT insert_random_characters();
 
+-- Create dedicated index for bits you want to order by
+DROP INDEX IF EXISTS is_european_idx;
+CREATE INDEX is_european_idx ON bitmask_demo ((status & 8 = 8));
+
 CREATE VIEW view_bitmask_demo AS
 SELECT id,
        character_name,
