@@ -75,15 +75,15 @@ Result size is 4,546,503
 
 | Run # | Execution Time (ms) | Fetch Time (ms) |
 |-------|---------------------|-----------------|
-| 1     | 119                 | 12              |
-| 2     | 6                   | 21              |
-| 3     | 7                   | 38              |
-| 4     | 6                   | 36              |
-| 5     | 6                   | 42              |
-| 6     | 7                   | 20              |
+| 1     | 10                  | 14              |
+| 2     | 11                  | 22              |
+| 3     | 9                   | 12              |
+| 4     | 10                  | 60              |
+| 5     | 11                  | 23              |
+| 6     | 10                  | 11              |
 
-* Median value for "Execution time (ms)": 6.5
-* Median value for "Fetch time (ms)": 28.5
+* Median value for "Execution time (ms)": 10
+* Median value for "Fetch time (ms)": 22.5
 
 ## Booleans
 
