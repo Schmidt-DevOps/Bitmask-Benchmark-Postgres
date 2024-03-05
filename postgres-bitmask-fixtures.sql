@@ -9,8 +9,6 @@ CREATE TABLE bitmask_demo
     status         INTEGER DEFAULT 0 NOT NULL,
     character_name VARCHAR(36)       NOT NULL
 );
-CREATE INDEX bitmask_demo_status_index
-    ON public.bitmask_demo (status);
 
 CREATE OR REPLACE FUNCTION insert_named_characters()
     RETURNS VOID AS
@@ -69,6 +67,9 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 SELECT insert_random_characters();
+
+-- CREATE INDEX bitmask_demo_status_index ON public.bitmask_demo (status);
+CREATE INDEX is_european_idx ON bitmask_demo ((status & 8 = 8));
 
 -- Create dedicated index for bits you want to order by
 -- DROP INDEX IF EXISTS is_european_idx;

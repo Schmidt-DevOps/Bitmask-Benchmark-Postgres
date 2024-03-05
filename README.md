@@ -46,16 +46,16 @@ include a dedicated "is_european" index (see SQL below).
 
 | Run # | Time (s) | Total MB | Data MB | Index MB | Peak MEM MB | Block I MB | Block O MB |
 |-------|----------|----------|---------|----------|-------------|------------|------------|
-| 1     | 21       | 574      | 403     | 171      | 229         | 154        | 3750       |
-| 2     | 22       | 574      | 403     | 171      | 229         | 153        | 3700       |
-| 3     | 21       | 574      | 403     | 171      | 229         | 153        | 3680       |
-| 4     | 23       | 574      | 403     | 171      | 229         | 153        | 3690       |
-| 5     | 21       | 574      | 403     | 171      | 231         | 156        | 3730       |
-| 6     | 20       | 574      | 403     | 171      | 230         | 154        | 3700       |
+| 1     | 18       | 543      | 403     | 140      | 267         | 158        | 3450       |
+| 2     | 20       | 543      | 403     | 140      | 299         | 156        | 3410       |
+| 3     | 19       | 543      | 403     | 140      | 262         | 153        | 3440       |
+| 4     | 18       | 543      | 403     | 140      | 325         | 153        | 3450       |
+| 5     | 20       | 543      | 403     | 140      | 282         | 153        | 3450       |
+| 6     | 19       | 543      | 403     | 140      | 255         | 167        | 3420       |
 
-* Median value for "Peak MEM MB": 229
-* Median value for "Block Input MB": 153.5
-* Median value for "Block Output MB": 3700
+* Median value for "Peak MEM MB": 275,5
+* Median value for "Block Input MB": 154.5
+* Median value for "Block Output MB": 3445
 
 This query only calculates what's needed.
 
@@ -66,8 +66,8 @@ CREATE INDEX is_european_idx ON bitmask_demo ((status & 8 = 8) );
 
 SELECT *, status & 8 = 8 AS is_european
 FROM bitmask_demo
-WHERE status & 2 != 2
-   OR (status & 1 != 1 AND status & 4 = 4)
+WHERE status & 2 != 2 -- is_male IS false
+   OR (status & 1 != 1 AND status & 4 = 4) -- OR (is_female IS false AND is_scientist IS true)
 ORDER BY is_european ASC;
 ```
 
@@ -92,16 +92,16 @@ more resources.
 
 | Run # | Time (s) | Total MB | Data MB | Index MB | Peak MEM MB | Block I MB | Block O MB |
 |-------|----------|----------|---------|----------|-------------|------------|------------|
-| 1     | 55       | 848      | 403     | 446      | 231         | 155        | 7870       |
-| 2     | 55       | 848      | 403     | 446      | 231         | 158        | 7780       |
-| 3     | 56       | 848      | 403     | 446      | 230         | 154        | 7610       |
-| 4     | 56       | 848      | 403     | 446      | 234         | 157        | 7650       |
-| 5     | 57       | 848      | 403     | 446      | 230         | 153        | 7620       |
-| 6     | 57       | 848      | 403     | 446      | 293         | 158        | 7730       |
+| 1     | 26       | 543      | 403     | 140      | 231         | 154        | 3470       |
+| 2     | 26       | 543      | 403     | 140      | 294         | 154        | 3470       |
+| 3     | 28       | 543      | 403     | 140      | 228         | 153        | 3460       |
+| 4     | 29       | 543      | 403     | 140      | 292         | 153        | 3470       |
+| 5     | 30       | 543      | 403     | 140      | 324         | 153        | 3460       |
+| 6     | 57       | 543      | 403     | 140      | 276         | 153        | 3470       |
 
-* Median value for "Peak MEM MB": 231
-* Median value for "Block Input MB": 156
-* Median value for "Block Output MB": 7690
+* Median value for "Peak MEM MB": 284
+* Median value for "Block Input MB": 153
+* Median value for "Block Output MB": 3470
 
 ```sql
 SELECT id, character_name

@@ -19,28 +19,6 @@ CREATE TABLE bitmask_demo
     is_academic    BOOLEAN DEFAULT false,
     is_terran      BOOLEAN DEFAULT false
 );
-CREATE INDEX bitmask_demo_is_female_index
-    ON public.bitmask_demo (is_female);
-CREATE INDEX bitmask_demo_is_male_index
-    ON public.bitmask_demo (is_male);
-CREATE INDEX bitmask_demo_is_scientist_index
-    ON public.bitmask_demo (is_scientist);
-CREATE INDEX bitmask_demo_is_european_index
-    ON public.bitmask_demo (is_european);
-CREATE INDEX bitmask_demo_is_american_index
-    ON public.bitmask_demo (is_american);
-CREATE INDEX bitmask_demo_is_activist_index
-    ON public.bitmask_demo (is_activist);
-CREATE INDEX bitmask_demo_is_fictional_index
-    ON public.bitmask_demo (is_fictional);
-CREATE INDEX bitmask_demo_is_politician_index
-    ON public.bitmask_demo (is_politician);
-CREATE INDEX bitmask_demo_is_space_farer_index
-    ON public.bitmask_demo (is_space_farer);
-CREATE INDEX bitmask_demo_is_academic_index
-    ON public.bitmask_demo (is_academic);
-CREATE INDEX bitmask_demo_is_terran_index
-    ON public.bitmask_demo (is_terran);
 
 CREATE OR REPLACE FUNCTION insert_named_characters()
     RETURNS VOID AS
@@ -106,6 +84,29 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 SELECT insert_random_characters();
+
+-- CREATE INDEX bitmask_demo_is_female_index
+--     ON public.bitmask_demo (is_female);
+-- CREATE INDEX bitmask_demo_is_male_index
+--     ON public.bitmask_demo (is_male);
+-- CREATE INDEX bitmask_demo_is_scientist_index
+--     ON public.bitmask_demo (is_scientist);
+CREATE INDEX bitmask_demo_is_european_index
+    ON public.bitmask_demo (is_european);
+-- CREATE INDEX bitmask_demo_is_american_index
+--     ON public.bitmask_demo (is_american);
+-- CREATE INDEX bitmask_demo_is_activist_index
+--     ON public.bitmask_demo (is_activist);
+-- CREATE INDEX bitmask_demo_is_fictional_index
+--     ON public.bitmask_demo (is_fictional);
+-- CREATE INDEX bitmask_demo_is_politician_index
+--     ON public.bitmask_demo (is_politician);
+-- CREATE INDEX bitmask_demo_is_space_farer_index
+--     ON public.bitmask_demo (is_space_farer);
+-- CREATE INDEX bitmask_demo_is_academic_index
+--     ON public.bitmask_demo (is_academic);
+-- CREATE INDEX bitmask_demo_is_terran_index
+--     ON public.bitmask_demo (is_terran);
 
 -- CREATE VIEW view_bitmask_demo AS
 -- SELECT id,
