@@ -104,6 +104,10 @@ more resources.
 * Median value for "Block Output MB": 3470
 
 ```sql
+-- Create dedicated index for attributes you want to order by
+DROP INDEX IF EXISTS is_european_idx;
+CREATE INDEX is_european_idx ON bitmask_demo ((status & 8 = 8));
+
 SELECT id, character_name
 FROM bitmask_demo
 WHERE is_male IS false
