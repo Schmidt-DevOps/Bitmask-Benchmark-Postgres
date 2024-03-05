@@ -107,19 +107,19 @@ END;
 $$ LANGUAGE plpgsql;
 SELECT insert_random_characters();
 
-CREATE VIEW view_bitmask_demo AS
-SELECT id,
-       character_name,
-       is_female,
-       is_male,
-       is_scientist,
-       is_european,
-       is_american,
-       is_activist,
-       is_fictional,
-       is_politician,
-       is_space_farer,
-       is_academic,
-       is_terran
-FROM bitmask_demo
-ORDER BY id;
+-- CREATE VIEW view_bitmask_demo AS
+-- SELECT id,
+--        character_name,
+--        is_female,
+--        is_male,
+--        is_scientist,
+--        is_european,
+--        is_american,
+--        is_activist,
+--        is_fictional,
+--        is_politician,
+--        is_space_farer,
+--        is_academic,
+--        is_terran
+-- FROM bitmask_demo
+-- ORDER BY id;

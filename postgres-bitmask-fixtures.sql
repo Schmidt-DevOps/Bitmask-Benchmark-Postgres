@@ -71,23 +71,23 @@ $$ LANGUAGE plpgsql;
 SELECT insert_random_characters();
 
 -- Create dedicated index for bits you want to order by
-DROP INDEX IF EXISTS is_european_idx;
-CREATE INDEX is_european_idx ON bitmask_demo ((status & 8 = 8));
+-- DROP INDEX IF EXISTS is_european_idx;
+-- CREATE INDEX is_european_idx ON bitmask_demo ((status & 8 = 8));
 
-CREATE VIEW view_bitmask_demo AS
-SELECT id,
-       character_name,
-       status,
-       status & 1 = 1       AS is_female,
-       status & 2 = 2       AS is_male,
-       status & 4 = 4       AS is_scientist,
-       status & 8 = 8       AS is_european,
-       status & 16 = 16     AS is_american,
-       status & 32 = 32     AS is_activist,
-       status & 64 = 64     AS is_fictional,
-       status & 128 = 128   AS is_politician,
-       status & 256 = 256   AS is_space_farer,
-       status & 512 = 512   AS is_academic,
-       status & 1024 = 1024 AS is_terran
-FROM bitmask_demo
-ORDER BY id;
+-- CREATE VIEW view_bitmask_demo AS
+-- SELECT id,
+--        character_name,
+--        status,
+--        status & 1 = 1       AS is_female,
+--        status & 2 = 2       AS is_male,
+--        status & 4 = 4       AS is_scientist,
+--        status & 8 = 8       AS is_european,
+--        status & 16 = 16     AS is_american,
+--        status & 32 = 32     AS is_activist,
+--        status & 64 = 64     AS is_fictional,
+--        status & 128 = 128   AS is_politician,
+--        status & 256 = 256   AS is_space_farer,
+--        status & 512 = 512   AS is_academic,
+--        status & 1024 = 1024 AS is_terran
+-- FROM bitmask_demo
+-- ORDER BY id;

@@ -41,20 +41,21 @@ Notes:
 
 ## Bitmasks
 
-These are the results for 11-31 attributes.
+These are the results loading fixtures for 11-31 attributes. Note that the values for "Index" 
+include a dedicated "is_european" index (see SQL below).
 
 | Run # | Time (s) | Total MB | Data MB | Index MB | Peak MEM MB | Block I MB | Block O MB |
 |-------|----------|----------|---------|----------|-------------|------------|------------|
-| 1     | 21       | 574      | 403     | 171      | 324         | 153        | 3430       |
-| 2     | 22       | 574      | 403     | 171      | 325         | 153        | 3960       |
-| 3     | 21       | 574      | 403     | 171      | 324         | 153        | 4020       |
-| 4     | 21       | 574      | 403     | 171      | 294         | 153        | 3980       |
-| 5     | 21       | 574      | 403     | 171      | 325         | 153        | 3980       |
-| 6     | 20       | 574      | 403     | 171      | 227         | 159        | 3930       |
+| 1     | 21       | 574      | 403     | 171      | 229         | 154        | 3750       |
+| 2     | 22       | 574      | 403     | 171      | 229         | 153        | 3700       |
+| 3     | 21       | 574      | 403     | 171      | 229         | 153        | 3680       |
+| 4     | 23       | 574      | 403     | 171      | 229         | 153        | 3690       |
+| 5     | 21       | 574      | 403     | 171      | 231         | 156        | 3730       |
+| 6     | 20       | 574      | 403     | 171      | 230         | 154        | 3700       |
 
-* Median value for "Peak MEM MB": 324
-* Median value for "Block Input MB": 153
-* Median value for "Block Output MB": 3970
+* Median value for "Peak MEM MB": 229
+* Median value for "Block Input MB": 153.5
+* Median value for "Block Output MB": 3700
 
 This query only calculates what's needed.
 
@@ -86,21 +87,21 @@ Result size is 4,546,503
 
 ## Booleans
 
-These are the results for 11 attributes. More attributes mean more indexes and thus
+These are the results loading fixtures for 11 attributes. More attributes mean more indexes and thus
 more resources.
 
-| Run # | Time (s) | Total MB | Data MB | Index MB | Peak MEM MB | Block IO MB |
-|-------|----------|----------|---------|----------|-------------|-------------|
-| 1     | 52       | 848      | 403     | 446      | 237         | 159/7740    |
-| 2     | 51       | 848      | 403     | 446      | 236         | 167/7750    |
-| 3     | 52       | 848      | 403     | 446      | 234         | 162/7650    |
-| 4     | 51       | 848      | 403     | 446      | 234         | 157/7670    |
-| 5     | 51       | 848      | 403     | 446      | 234         | 160/7740    |
-| 6     | 51       | 848      | 403     | 446      | 267         | 162/7690    |
+| Run # | Time (s) | Total MB | Data MB | Index MB | Peak MEM MB | Block I MB | Block O MB |
+|-------|----------|----------|---------|----------|-------------|------------|------------|
+| 1     | 55       | 848      | 403     | 446      | 231         | 155        | 7870       |
+| 2     | 55       | 848      | 403     | 446      | 231         | 158        | 7780       |
+| 3     | 56       | 848      | 403     | 446      | 230         | 154        | 7610       |
+| 4     | 56       | 848      | 403     | 446      | 234         | 157        | 7650       |
+| 5     | 57       | 848      | 403     | 446      | 230         | 153        | 7620       |
+| 6     | 57       | 848      | 403     | 446      | 293         | 158        | 7730       |
 
-* Median value for "Peak MEM MB": 235
-* Median value for "Block Input MB": 161
-* Median value for "Block Output MB": 7715
+* Median value for "Peak MEM MB": 231
+* Median value for "Block Input MB": 156
+* Median value for "Block Output MB": 7690
 
 ```sql
 SELECT id, character_name
