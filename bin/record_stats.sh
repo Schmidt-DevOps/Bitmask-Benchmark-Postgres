@@ -18,6 +18,6 @@ trap cleanup INT
 
 echo "Hit CTRL-c to stop recording after the container has settled."
 while true; do
-  docker stats "$(docker ps -q -f name=postgres-bitmask-postgres-bitmask-benchmark)" --no-stream | grep -v CONTAINER >>"${RESULTS_FILE}"
+  docker stats "$(docker ps -q -f name=postgres-bitmask-benchmark)" --no-stream | grep -v CONTAINER >>"${RESULTS_FILE}"
   sleep 0.01
 done
